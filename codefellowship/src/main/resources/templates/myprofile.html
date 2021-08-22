@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+</head>
+<body>
+<div th:replace="header :: header"><button isAuthenticated()>Logout</button></div>
+
+<main>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" th:src="${user.imageUrl}" alt="Card image cap">
+        <div class="card-body">
+            username : <h5 class="card-title" th:text="${user.username}"></h5>
+            Full Name : <p class="card-text" th:text="${user.firstName} + ${user.lastName}"></p>
+            Date Of Birth : <p class="card-text" th:text="${user.dateOfBirth}"></p>
+            Bio : <p class="card-text" th:text="${user.bio}"></p>
+        </div>
+    </div>
+    <div>
+        <form action="/" method="post" class="form">
+            <label for="post">Add new post</label>
+            <input id="post" name="post" type="text"/>
+            <br/>
+
+            <button type="submit">Add Post</button>
+        </form>
+    </div>
+</main>
+
+</body>
+</html>
