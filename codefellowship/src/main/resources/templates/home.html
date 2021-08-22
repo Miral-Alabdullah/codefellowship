@@ -6,10 +6,14 @@
     <title>Home</title>
 </head>
 <body>
-<header th:insert="header.html"></header>
+<div th:insert="header :: header"></div>
+<div>
+    <p th:text="${user.username}"></p>
+</div>
 
 <main>
-    <h3>CodeFellowship that allows people learning to code to connect with each other and support each other on their coding journeys.</h3>
+    <h3>CodeFellowship that allows people learning to code to connect with each other and support each other on their
+        coding journeys.</h3>
 </main>
 
 <footer>

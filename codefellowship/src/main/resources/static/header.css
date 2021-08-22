@@ -1,13 +1,3 @@
-html{
-background-image: url("https://wallpaperaccess.com/full/4885774.jpg");
-background-size: cover;
-background-repeat: no-repeat;
-}
-body {
-line-height: 1;
-background-color: transparent;
-}
-
 header{
 display: grid;
 grid-template-columns: auto auto;

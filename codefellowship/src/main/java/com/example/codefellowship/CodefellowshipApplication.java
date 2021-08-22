@@ -4,7 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @SpringBootApplication
@@ -16,8 +15,17 @@ public class CodefellowshipApplication {
 	}
 
 	@GetMapping("/")
-	public static String renderTheGreeting(){
+	public String starterPage() {
 		return "home.html";
 	}
 
+	@GetMapping("/login")
+	public String getLogin() {
+		return "signin.html";
+	}
+
+	@GetMapping("/signup")
+	public String getSignUp() {
+		return "signup.html";
+	}
 }

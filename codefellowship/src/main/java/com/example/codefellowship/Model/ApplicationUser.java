@@ -6,6 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -14,23 +17,97 @@ public class ApplicationUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     @Column(unique = true)
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String dateOfBirth;
-    private String bio;
+    public String username;
+    public String password;
+    public String firstName;
+    public String lastName;
+    public String dateOfBirth;
+    public String bio;
+    public String imageUrl;
+    @OneToMany(mappedBy = "applicationUser")
+    protected List<Post> posts;
+    @ManyToMany
+    @JoinTable(
+            name = "following_relations",
+            joinColumns = {@JoinColumn(name = "follower")},
+            inverseJoinColumns = {@JoinColumn(name = "following")}
+    )
+    Set<ApplicationUser> followers = new HashSet<>();
+
+    @ManyToMany(mappedBy = "followers")
+    Set<ApplicationUser> following = new HashSet<>();
 
     public ApplicationUser() {
     }
 
-    public ApplicationUser(String username, String password, String firstName, String lastName, String dateOfBirth, String bio) {
+    public ApplicationUser(String username, String password, String firstName,
+                           String lastName, String dateOfBirth, String bio, String imageUrl) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
+        this.imageUrl = imageUrl;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public void setFollowers(Set<ApplicationUser> followers) {
+        this.followers = followers;
+    }
+
+    public void setFollowing(Set<ApplicationUser> following) {
+        this.following = following;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
     }
 
     @Override
@@ -51,57 +128,5 @@ public class ApplicationUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
     }
 }
